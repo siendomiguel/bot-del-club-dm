@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const config = require('./config/config.js') //llamamos al archivo de configuracion
+// const config = require('./config/config.js') //llamamos al archivo de configuracion
 
 //funcion para el estado del bot
 function estadoDelBot(){
@@ -13,7 +13,7 @@ function estadoDelBot(){
     })
 }
 
-let prefix = config.PREFIX; //Llamamos al Prefix
+let prefix = "-"; //Llamamos al Prefix
 
 
 client.on('ready', () => {
@@ -117,4 +117,4 @@ if(command === 'erol'){
 
 
 
-client.login(config.TOKEN); //Llamamos al TOKEN
+client.login("Nzc1NzEyMzcwMDMwMDE4NjAy.X6qUcQ.K3CsJ9BkthDIzkA03483KJY20tw"); //Llamamos al TOKEN
