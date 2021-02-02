@@ -1,6 +1,8 @@
+require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
-// const config = require('./config/config.js') //llamamos al archivo de configuracion
+
+const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 
 //funcion para el estado del bot
 function estadoDelBot(){
@@ -13,8 +15,7 @@ function estadoDelBot(){
     })
 }
 
-let prefix = "-"; //Llamamos al Prefix
-
+let prefix = process.env.PREFIX; //Llamamos al Prefix
 
 client.on('ready', () => {
     console.log('Estoy Listo!!');
@@ -25,17 +26,31 @@ client.on('ready', () => {
 client.on('message', (message) => {
 
 if(message.author.bot) return; //No responder a mensajes de otros Bots
-if(!message.content.startsWith(prefix)) return; //No responder si el contenido del mensaje no empieza por el prefix
+//if(!message.content.startsWith(prefix)) return; //No responder si el contenido del mensaje no empieza por el prefix
 
 //Definimos prefix y commands
 const args = message.content.slice(prefix.length).trim().split(' ');
 const command = args.shift().toLocaleLowerCase();
+
+const CHANNEL_ID = process.env.CHANNEL_ID;
+const dest = CHANNEL_ID; //Channel ID (Discord)
 
 if( command === 'ayuda'){
     message.channel.send('Lo siento, Este bot aun esta en fase BETA!! :pensive: ').then(msg => msg.delete({timeout: 3000}));;
 
     message.delete();
 }
+
+if(message.content.includes('t.me/' || 'https://t.me/')) {
+    let perms = message.member.hasPermission("MANAGE_ROLES");
+
+    if(perms) return;
+    message.channel.send('No se permiten compartir grupos de Telegram en este Discord').then(msg => msg.delete({timeout: 3000}));;
+    
+    message.delete();
+}
+
+
 
 //Expulsar a un usuario
 if(command === 'kick'){
@@ -113,8 +128,9 @@ if(command === 'erol'){
     
 }
 
+
 });
 
 
 
-client.login("Nzc1NzEyMzcwMDMwMDE4NjAy.X6qUcQ.K3CsJ9BkthDIzkA03483KJY20tw"); //Llamamos al TOKEN
+client.login(DISCORD_TOKEN); //Llamamos al TOKEN
