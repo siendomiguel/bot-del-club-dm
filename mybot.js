@@ -45,9 +45,12 @@ if(message.content.includes('t.me/' || 'https://t.me/')) {
     let perms = message.member.hasPermission("MANAGE_ROLES");
 
     if(perms) return;
-    message.channel.send('No se permiten compartir grupos de Telegram en este Discord').then(msg => msg.delete({timeout: 3000}));;
+    message.channel.send(`No se permiten compartir grupos de Telegram en este Discord`).then(msg => msg.delete({timeout: 3000}));
     
+    client.channels.cache.get(dest).send(`El usuario <@${message.author.id}> envió este grupo de telegram ${message.content}`);
     message.delete();
+
+    console.log(message.author.username);
 }
 
 
