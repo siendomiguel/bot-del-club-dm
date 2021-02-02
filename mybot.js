@@ -9,7 +9,7 @@ function estadoDelBot(){
     client.user.setPresence ({
         status: 'online',
         activity: {
-            name: 'al mercado | -ayuda',
+            name: 'Trading MODE: ON | -ayuda',
             type: 'WATCHING'
         }
     })
